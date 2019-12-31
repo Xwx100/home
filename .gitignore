@@ -1,0 +1,7 @@
+.idea
+composer.lock
+*.log
+thinkphp/.git
+application/local.php
+front_code/**/node_modules/*
+front_code/**/.history/*
