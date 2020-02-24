@@ -15,5 +15,18 @@
 //var_dump(is_float(111.0));
 
 
-var_dump([1,2,3] + [2,3,4]);
-var_dump(array_merge([1,2,3], [2,3,4]));
+//var_dump([1,2,3] + [2,3,4]);
+//var_dump(array_merge([1,2,3], [2,3,4]));
+
+$two_dimensional = array();
+
+$two_dimensional['foo'] = array('a' => 1, 'b' => 2, 'c' => 3);
+$two_dimensional['bar'] = array('a' => 4, 'b' => 5, 'c' =>6);
+
+$one_dimensional = array_reduce($two_dimensional, 'array_merge', array());
+var_dump($one_dimensional);
+
+$one_dimensional = array_reduce($two_dimensional, function ($one_dimensional, $value) {
+    return array_merge($one_dimensional, array_values($value));
+}, array());
+var_dump($one_dimensional);
