@@ -14,6 +14,8 @@
 //
 //var_dump(is_float(111.0));
 
+echo http_build_query(['advertiser_id' => 67565972041, 'fitering' => ["landing_type" => ["EXTERNAL"]]]);
+exit();
 
 //var_dump([1,2,3] + [2,3,4]);
 //var_dump(array_merge([1,2,3], [2,3,4]));
