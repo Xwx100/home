@@ -131,25 +131,43 @@
 //}
 //echo "({$parentPid})main progress end!\n";
 
-trait HelloWorld {
-    public function sayHello() {
-        echo 'Hello World!';
+var_dump(array_intersect(['1', '2'], [1, 2]));
+
+
+var_dump(array_values([1 => [1], 2 => [2]]));
+
+echo stripos('11creative_ids', 'creative_id');
+
+abstract class A {
+    public static $instance = null;
+
+    /**
+     * @return A
+     */
+    public static function getInstance() {
+        $className = get_called_class();
+        if (!static::$instance instanceof $className) {
+            static::$instance = new static();
+        }
+        return static::$instance;
+    }
+
+    public function aa() {
+        echo get_called_class();
     }
 }
 
-class A {
-    public function sayHello() {
-        echo 'Hello A!';
-    }
+class B extends A {
+//    public static $instance = null;
 }
 
-class TheWorldIsNotEnough extends A {
-    use HelloWorld;
-    public function sayHello() {
-        parent::sayHello();
-        echo 'Hello Universe!';
-    }
+class C extends A {
+//    public static $instance = null;
 }
 
-$o = new TheWorldIsNotEnough();
-$o->sayHello();
+
+$b = B::getInstance();
+$c = C::getInstance();
+$b->aa();
+$c->aa();
+var_dump($b, $c);
