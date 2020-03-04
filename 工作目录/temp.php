@@ -262,6 +262,8 @@ foreach ($assign as $looTime) {
     }
 }
 
+echo 111111111111;
+var_dump($recordPid);
 foreach ($recordPid as $pid => $pid) {
     pcntl_waitpid($pid, $status);
 }
