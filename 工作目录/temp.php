@@ -170,4 +170,15 @@ $b = B::getInstance();
 $c = C::getInstance();
 $b->aa();
 $c->aa();
-var_dump($b, $c);
+//var_dump($b, $c);
+
+//$c = [[1],[2],[3]];
+//foreach ($c as &$d) {
+//    foreach ((array)$d as &$i) {
+//        $i = 4;
+//    }
+//}
+//var_dump($c);
+//
+//$a = null;
+//var_dump((array)$a ?? '111');
