@@ -131,12 +131,12 @@
 //}
 //echo "({$parentPid})main progress end!\n";
 
-var_dump(array_intersect(['1', '2'], [1, 2]));
+//var_dump(array_intersect(['1', '2'], [1, 2]));
+//
+//
+//var_dump(array_values([1 => [1], 2 => [2]]));
 
-
-var_dump(array_values([1 => [1], 2 => [2]]));
-
-echo stripos('11creative_ids', 'creative_id');
+//echo stripos('11creative_ids', 'creative_id');
 
 abstract class A {
     public static $instance = null;
@@ -166,10 +166,10 @@ class C extends A {
 }
 
 
-$b = B::getInstance();
-$c = C::getInstance();
-$b->aa();
-$c->aa();
+//$b = B::getInstance();
+//$c = C::getInstance();
+//$b->aa();
+//$c->aa();
 //var_dump($b, $c);
 
 //$c = [[1],[2],[3]];
@@ -182,3 +182,112 @@ $c->aa();
 //
 //$a = null;
 //var_dump((array)$a ?? '111');
+//function deleteFile() {
+//    echo 'deleteFile...'.PHP_EOL;
+//    debug_print_backtrace();
+//    return false;
+//}
+//set_error_handler('deleteFile');
+//echo 1/0;
+//echo '1111111111';
+//define('THINK_START_TIME', microtime(true));
+//echo sprintf('%05d.%x', posix_getpid(), THINK_START_TIME * 10000);
+//echo session_create_id();
+
+
+
+
+$argv = $_SERVER['argv'];
+parse_str($argv[1], $argv1);
+
+define('UUID_KEY', 'gen_uuid');
+
+// 循环次数
+$loopTimes = 10000;
+// 进程数
+$process = 4;
+$assign = [];
+$r = null;
+$recordPid = [];
+
+// params default
+foreach ($argv1 as $varName => $varValue) {
+    if ($varValue) {
+        $$varName = $varValue;
+    }
+}
+// redis
+$op = [
+    'host'       => '127.0.0.1',
+    'port'       => 6379,
+    'password'   => '',
+    'select'     => 0,
+    'timeout'    => 0,
+    'expire'     => 0,
+    'persistent' => false,
+    'prefix'     => '',
+];
+$r = new \Redis();
+$r->connect($op['host'], $op['port']);
+$i = $r->sCard(UUID_KEY);
+if ($i) {
+    $r->del(UUID_KEY);
+    echo "key=" . UUID_KEY . " deleted".PHP_EOL;
+}
+
+
+// 剩下
+$loopTime = intval($loopTimes / $process);
+$remain = $loopTimes % $process;
+// 分配
+
+for ($i=0; $i < $process; $i++) {
+    array_push($assign, $loopTime);
+}
+if (!empty($remain)) {
+    array_push($assign, $remain);
+}
+
+
+
+foreach ($assign as $looTime) {
+    $pid = pcntl_fork();
+    if ($pid) {
+        // son
+        $recordPid[$pid] = $pid;
+        call_user_func_array('task', [$r, $loopTime]);
+        exit();
+    } else {
+        // father
+    }
+}
+
+foreach ($recordPid as $pid => $pid) {
+    pcntl_waitpid($pid, $status);
+}
+
+echo $count = $r->sCard(UUID_KEY);
+if ($count != $loopTimes) {
+    echo "no_repeat_count={$count} != total_count={$loopTimes} 循环次数:{$loopTimes} 有重复" . PHP_EOL;
+} else {
+    echo '无重复';
+}
+
+
+function task(\Redis $r, $loopTimes) {
+    $pid = posix_getpid();
+    $ppid = posix_getppid();
+    echo "ppid={$ppid} pid={$pid} test" . PHP_EOL;
+    $testKey = UUID_KEY;
+
+    for($i=0;$i<$loopTimes;$i++){
+        echo $i . "\t";
+        $uid = md5(uniqid(md5(microtime(true)),true));
+        $r->sAdd($testKey, $uid);
+    }
+    exit();
+}
+
+
+
+
