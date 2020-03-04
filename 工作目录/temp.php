@@ -254,7 +254,7 @@ foreach ($assign as $looTime) {
     $pid = pcntl_fork();
     if ($pid) {
         // son
-        $recordPid[$pid] = $pid;
+        $rPid = posix_getpid();
         call_user_func_array('task', [$r, $loopTime]);
         exit();
     } else {
