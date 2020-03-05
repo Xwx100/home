@@ -1,0 +1,17 @@
+{
+    "name": "root/php",
+    "authors": [
+        {
+            "name": "xuweixin",
+            "email": "793486544@qq.com"
+        }
+    ],
+    "require": {
+        "ext-posix": "^0.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "tools\\": "tp_tool/"
+        }
+    }
+}
