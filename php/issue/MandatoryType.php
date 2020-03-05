@@ -11,7 +11,7 @@
 namespace Issue;
 
 
-trait MandatoryType {
+class MandatoryType {
 
     public static function issue1() {
         $c = [[1],[2],[3]];

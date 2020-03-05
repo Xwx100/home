@@ -9,7 +9,7 @@
 namespace Issue;
 
 
-Trait JsonEncode {
+class JsonEncode {
 
     public static function issue() {
         $a = 14052.34;
