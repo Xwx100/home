@@ -90,9 +90,9 @@ class XuProcess {
         $count = self::$r->sCard(self::UUID_KEY);
         $loopTimes = self::$info['loop_times'];
         if ($count != $loopTimes) {
-            echo "no_repeat_count={$count} != total_count={$loopTimes} 循环次数:{$loopTimes} 有重复" . PHP_EOL;
+            print_r("no_repeat_count={$count} != total_count={$loopTimes} 循环次数:{$loopTimes} 有重复");
         } else {
-            echo "无重复 count={$count} loop_times={$loopTimes}";
+            print_r("无重复 count={$count} loop_times={$loopTimes}");
         }
     }
 
