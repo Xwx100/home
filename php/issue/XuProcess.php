@@ -1,7 +1,6 @@
 <?php
 /**
  * 用于测试 唯一ID
- *
  * Created by PhpStorm.
  * User: Xu
  * Date: 2020/3/5
@@ -133,6 +132,8 @@ class XuProcess {
 }
 
 
+$s = time();
+
 $argv = $_SERVER['argv'];
 parse_str($argv[1], $argv1);
 
@@ -149,3 +150,6 @@ var_dump(XuProcess::$queue);
 
 $p->start();
 
+$e = time();
+
+print_r(sprintf('总运行时间：%s-%s=%s', $s, $e, $e - $s));
