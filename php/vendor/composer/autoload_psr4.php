@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'tools\\' => array($baseDir . '/tp_tool'),
+    'math\\' => array($baseDir . '/math'),
 );

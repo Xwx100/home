@@ -199,3 +199,7 @@ class C extends A {
 //echo "3) ".basename("/etc/").PHP_EOL;
 //echo "4) ".basename(".").PHP_EOL;
 //echo "5) ".basename("/");
+//
+//
+echo 'temp.php';
+$c = 4;
